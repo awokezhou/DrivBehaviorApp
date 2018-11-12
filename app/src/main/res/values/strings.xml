@@ -3,4 +3,5 @@
     <string name="basic_pattern">基础模式</string>
     <string name="view3d_pattern">3D视图模式</string>
     <string name="map_pattern">地图模式</string>
+    <string name="map_mark">标记</string>
 </resources>
