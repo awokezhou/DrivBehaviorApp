@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button_activity_base"
+            android:text="@string/basic_pattern"
+            android:textColor="#F0F0F0"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryDark"/>
+
+        <Button
+            android:id="@+id/button_activity_3d"
+            android:text="@string/view3d_pattern"
+            android:textColor="#F0F0F0"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryDark"/>
+
+        <Button
+            android:id="@+id/button_activity_map"
+            android:text="@string/map_pattern"
+            android:textColor="#F0F0F0"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryDark"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
