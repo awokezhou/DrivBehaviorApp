@@ -11,7 +11,7 @@
         <com.baidu.mapapi.map.MapView
             android:id="@+id/view_map"
             android:layout_width="fill_parent"
-            android:layout_height="300dp"
+            android:layout_height="600dp"
             android:clickable="true" />
 
         <Button
@@ -21,6 +21,13 @@
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/map_text_debug"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

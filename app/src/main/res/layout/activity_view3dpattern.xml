@@ -4,11 +4,50 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.opengl.GLSurfaceView
+            android:id="@+id/view_opengl"
+            android:layout_width="fill_parent"
+            android:layout_height="300dp" />
+
         <TextView
-            android:text="view3d pattern"
+            android:id="@+id/view3d_text_1"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/view3d_text_2"
+            android:layout_marginTop="20dp"
+            android:textColor="#FF0000"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/view3d_text_3"
+            android:layout_marginTop="20dp"
+            android:textColor="#00FF00"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/view3d_text_4"
+            android:layout_marginTop="20dp"
+            android:textColor="#00FF00"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/view3d_text_5"
+            android:layout_marginTop="20dp"
+            android:textColor="#0000FF"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
