@@ -22,6 +22,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
@@ -69,6 +70,7 @@ public class MapPattern extends Activity implements SensorEventListener {
         initSensor();
         initMarker();
         mLocationClient.start();
+        mLocationClient.requestLocation();
     }
 
     private void initView() {
@@ -116,7 +118,7 @@ public class MapPattern extends Activity implements SensorEventListener {
         option.setCoorType("bd09ll");
 
         /* Set location request interval, 0 means request once */
-        int span = 1000;
+        int span = 5000;
         option.setScanSpan(span);
 
         /* set if need address info */
@@ -250,7 +252,6 @@ public class MapPattern extends Activity implements SensorEventListener {
             mLocationDate = new MyLocationData.Builder().accuracy(mCurrentAccracy)
                     .direction(mCurrentDirection).latitude(mCurrentLat).longitude(mCurrentLon).build();
             mBaiduMap.setMyLocationData(mLocationDate);
-
         }
         lastX = x;
     }
@@ -277,7 +278,8 @@ public class MapPattern extends Activity implements SensorEventListener {
             mCurrentLat = bdLocation.getLatitude();
             mCurrentLon = bdLocation.getLongitude();
             mCurrentAccracy = bdLocation.getRadius();
-
+            String location = "[Location] lat " + mCurrentLat + ", lon " + mCurrentLon;
+            System.out.println(location);
             /*
              * configure the location layer display mode
              * @var1: location mode, NORMAL/FOLLOWING/COMPASS
@@ -289,17 +291,19 @@ public class MapPattern extends Activity implements SensorEventListener {
             mBaiduMap.setMyLocationConfiguration(locationCfg);
 
             /* first time need to fresh map status */
+
             if (fFirstLocation) {
                 LatLng ll = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
-                MapStatus.Builder builder = new MapStatus.Builder()
+                MapStatus mMapStatus = new MapStatus.Builder()
                         .target(ll)// map zoom Center
-                        .zoom(18f);// zoom multiples Baidu map supports scaling 21 level special layers to 20 level
+                        .zoom(18f)
+                        .build();// zoom multiples Baidu map supports scaling 21 level special layers to 20 level
 
-                /* changing map status */
-                mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+                //changing map status
+                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                mBaiduMap.setMapStatus(mMapStatusUpdate);
                 fFirstLocation = false;
             }
-
         }
     };
 
@@ -330,6 +334,5 @@ public class MapPattern extends Activity implements SensorEventListener {
     protected void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
-
     }
 }

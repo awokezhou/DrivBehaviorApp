@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="Rps6NOczeuXNklOlSmb9hEYGxPhWTooj" />
+            android:value="7xWS2ODsgUTHXvGvgSG1W71AQMH0Rjry" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +46,9 @@
         </activity>
         <service
             android:name="service.SensorPollService"
+            android:enabled="true" />
+        <service
+            android:name="com.baidu.location.f"
             android:enabled="true" />
     </application>
 
