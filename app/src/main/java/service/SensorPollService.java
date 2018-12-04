@@ -286,9 +286,12 @@ public class SensorPollService extends Service implements SensorEventListener {
         xv = vectorX(vv);
         yv = vectorY(vv);
         zv = vectorZ(vv);
-        xsum = vectorX(vecVehisum)*0.97 + xv;
-        ysum = vectorY(vecVehisum)*0.97 + yv;
-        zsum = vectorZ(vecVehisum)*0.97 + zv;
+        xsum = vectorX(vecVehisum)*0.99 + xv;
+        ysum = vectorY(vecVehisum)*0.99 + yv;
+        zsum = vectorZ(vecVehisum)*0.99 + zv;
+        //System.out.println(xsum);
+        //System.out.println(ysum);
+        //System.out.println(zsum);
         vecVehisum.setElementAt(xsum, 0);
         vecVehisum.setElementAt(ysum, 1);
         vecVehisum.setElementAt(zsum, 2);
@@ -310,7 +313,7 @@ public class SensorPollService extends Service implements SensorEventListener {
         zd = Double.valueOf(vd.get(2).toString());
         xa = xv*xd;
         ya = yv*yd;
-        za = zv*zd;
+        za = zv*zd*0;
         mod = xa + ya + za;
         mod = doubleAccuracy(mod, 2);
         va.setElementAt(xa, 0);

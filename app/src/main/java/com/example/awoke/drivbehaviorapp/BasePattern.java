@@ -78,7 +78,7 @@ public class BasePattern extends Activity {
             mTextView1.setText(String.valueOf(intent.getExtras().getString("data.vecAcc")));
             mTextView2.setText(String.valueOf(intent.getExtras().getString("data.vecGravity")));
             mTextView3.setText(String.valueOf(intent.getExtras().getString("data.vecDelGrav")));
-            mTextView4.setText(String.valueOf(intent.getExtras().getString("data.vecAccAngle")));
+            mTextView4.setText(String.valueOf(intent.getExtras().getString("data.vecDirection")));
             mTextView5.setText(String.valueOf(intent.getExtras().getString("data.vecgyrAngle")));
             mTextView6.setText(String.valueOf(intent.getExtras().getString("data.vecCmpAngle")));
             mTextView7.setText(String.valueOf(intent.getExtras().getDouble("data.Mod")));

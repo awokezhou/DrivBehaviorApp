@@ -11,10 +11,9 @@ import android.widget.TextView;
 
 import com.example.awoke.drivbehaviorapp.CoordinateAxis.CoordinateAxisDraw;
 import com.example.awoke.drivbehaviorapp.CoordinateAxis.CoordinateAxisRenderer;
+import com.example.awoke.drivbehaviorapp.DataSave.NowTime;
 
 import java.util.Vector;
-
-import service.SensorPollService;
 
 public class View3dPattern extends Activity {
 

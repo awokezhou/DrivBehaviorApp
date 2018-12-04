@@ -30,15 +30,20 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.example.awoke.drivbehaviorapp.DataSave.DataSave;
+import com.example.awoke.drivbehaviorapp.DataSave.DataSaveFormat;
+import com.example.awoke.drivbehaviorapp.DataSave.NowTime;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class MapPattern extends Activity implements SensorEventListener {
-
     private TextView mTextView;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
     private Button mButtonMark;
+    private Button mButtonSave;
+    private DataSave mDataSave;
     private SensorManager mSensorManager;
     private LocationClient mLocationClient;
     private MyLocationData mLocationDate;
@@ -58,11 +63,15 @@ public class MapPattern extends Activity implements SensorEventListener {
     private double mCurrentLon = 0.0;
     private float mCurrentAccracy;
     public MapPattern.SensorPollBroadcastReceiver mBroadcastReceiver;
+    ArrayList<DataSaveFormat> mDataSaveList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mappattern);
+
+        mDataSaveList = new ArrayList<DataSaveFormat>();
+        mDataSave = new DataSave();
 
         initView();
         initReceiver();
@@ -85,6 +94,20 @@ public class MapPattern extends Activity implements SensorEventListener {
             @Override
             public void onClick(View v) {
                 setMarkTest(mMarkerTest);
+            }
+        });
+
+        mButtonSave = findViewById(R.id.button_save);
+        mButtonSave.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                try {
+                    mDataSave.vectorSave(mDataSaveList);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -176,23 +199,41 @@ public class MapPattern extends Activity implements SensorEventListener {
             //System.out.println(statSuddTurn);
             //System.out.println(statRollOver);
 
+            DataSaveFormat saveData = new DataSaveFormat();
+            saveData.now = new NowTime();
+            NowTime.getTime(saveData.now);
+            saveData.mCurrentLat = mCurrentLat;
+            saveData.mCurrentLon = mCurrentLon;
+
             if (!statCrash.equals("null")) {
                 setMarkTest(mMarkerCrash);
+                saveData.drivBehavior = statCrash;
+                mDataSaveList.add(saveData);
             }
             if (!statRapidAcc.equals("null")) {
                 setMarkTest(mMarkerRapidAcc);
+                saveData.drivBehavior = statRapidAcc;
+                mDataSaveList.add(saveData);
             }
             if (!statRapidDec.equals("null")) {
                 setMarkTest(mMarkerRapidDec);
+                saveData.drivBehavior = statRapidDec;
+                mDataSaveList.add(saveData);
             }
             if (!statBrake.equals("null")) {
                 setMarkTest(mMarkerBrakes);
+                saveData.drivBehavior = statBrake;
+                mDataSaveList.add(saveData);
             }
             if (!statSuddTurn.equals("null")) {
                 setMarkTest(mMarkerSuddTurn);
+                saveData.drivBehavior = statSuddTurn;
+                mDataSaveList.add(saveData);
             }
             if (!statRollOver.equals("null")) {
                 setMarkTest(mMarkerRollOver);
+                saveData.drivBehavior = statRollOver;
+                mDataSaveList.add(saveData);
             }
         }
     }
@@ -309,30 +350,36 @@ public class MapPattern extends Activity implements SensorEventListener {
 
     @Override
     protected void onResume() {
-        super.onResume();
+        System.out.printf("onResume\n");
         mMapView.onResume();
+        super.onResume();
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
+        System.out.printf("onPause\n");
         mMapView.onPause();
+        super.onPause();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
-        if (mLocationClient.isStarted()) {
-            mLocationClient.stop();
-        }
+        System.out.printf("onStop\n");
         mSensorManager.unregisterListener(this);
+        super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
+        mLocationClient.unRegisterLocationListener(mBDLocationListener);
+        mLocationClient.stop();
+        mBaiduMap.setMyLocationEnabled(false);
+        mMapView.getMap().clear();
         mMapView.onDestroy();
+        mMapView = null;
+        super.onDestroy();
     }
 }

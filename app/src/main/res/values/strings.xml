@@ -4,4 +4,5 @@
     <string name="view3d_pattern">3D视图模式</string>
     <string name="map_pattern">地图模式</string>
     <string name="map_mark">标记</string>
+    <string name="data_save">数据保存</string>
 </resources>
